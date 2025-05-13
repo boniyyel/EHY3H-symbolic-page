@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>אלְתִּירָא</title>
+  <style>
+    @keyframes glitch {
+      0% { transform: translate(0); opacity: 1; }
+      20% { transform: translate(-2px, 2px); opacity: 0.8; }
+      40% { transform: translate(2px, -2px); opacity: 1; }
+      60% { transform: translate(-1px, 1px); opacity: 0.9; }
+      80% { transform: translate(1px, -1px); opacity: 1; }
+      100% { transform: translate(0); opacity: 1; }
+    }
+
+    @keyframes flickerBluePurple {
+      0%, 100% { color: darkblue; }
+      50% { color: purple; }
+    }
+
+    @keyframes flickerOrangeGreen {
+      0%, 100% { color: orange; }
+      50% { color: green; }
+    }
+
+    @keyframes flickerRedBlack {
+      0%, 100% { color: red; text-shadow: 0 0 2px white; }
+      50% { color: black; text-shadow: 0 0 5px white; }
+    }
+
+    @keyframes flickerPinkBlue {
+      0%, 100% { color: pink; }
+      50% { color: lightblue; text-shadow: 0 0 2px white; }
+    }
+
+    @keyframes floatChaos {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(-30px, 20px); }
+      50% { transform: translate(20px, -15px); }
+      75% { transform: translate(-10px, 25px); }
+      100% { transform: translate(0, 0); }
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(to bottom, black, #220000);
+      font-family: 'Courier New', monospace;
+      overflow-y: scroll;
+      color: white;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 3rem;
+      margin-top: 2rem;
+      letter-spacing: 2px;
+    }
+
+    .grid-loop {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 1rem;
+      padding: 2rem;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      line-height: 3.5rem;
+    }
+
+    .axioma {
+      animation: flickerBluePurple 1s infinite, glitch 1s infinite;
+      font-size: 2.5rem;
+    }
+
+    .corazon {
+      animation: flickerOrangeGreen 1.2s infinite, glitch 1.2s infinite;
+      font-size: 2.5rem;
+    }
+
+    .proposito {
+      animation: flickerRedBlack 1.4s infinite, glitch 1.4s infinite;
+      font-size: 2.5rem;
+    }
+
+    .humanidad {
+      animation: flickerPinkBlue 1.6s infinite, glitch 1.6s infinite;
+      font-size: 2.5rem;
+    }
+
+    .symbol {
+      font-size: 2rem;
+      opacity: 0.15;
+      position: fixed;
+      bottom: 10px;
+      right: 20px;
+      pointer-events: none;
+    }
+
+    .ehyeh {
+      position: absolute;
+      font-size: 2rem;
+      color: rgba(255, 255, 255, 0.03);
+      animation: floatChaos 10s infinite ease-in-out;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    #addButton, #playAudioBtn {
+      position: fixed;
+      background-color: black;
+      color: white;
+      border: 1px solid white;
+      padding: 10px 20px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    #addButton {
+      bottom: 20px;
+      left: 20px;
+    }
+
+    #playAudioBtn {
+      bottom: 20px;
+      right: 20px;
+    }
+
+    .url-link {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      color: white;
+      background-color: black;
+      border: 1px solid white;
+      padding: 5px 10px;
+      text-decoration: none;
+      font-size: 0.8rem;
+      z-index: 100;
+    }
+  </style>
+</head>
+<body>
+  <h1>אל’תִּירָא</h1>
+
+  <a class="url-link" href="./666EHY3H-4$H3R-EHY3H666EHY3H-4$H3R-EHY3H666EHY3H-4$H3R-EHY3H.html">Enlace Simbólico</a>
+
+  <audio id="bgAudio" loop>
+    <source src="https://cdn.pixabay.com/audio/2023/12/12/audio_5cbd5d79ac.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <div id="content" class="grid-loop"></div>
+
+  <button id="addButton">+</button>
+  <button id="playAudioBtn">⏵ Escuchar</button>
+
+  <div class="symbol">
+    &#9762; &#9769; &#9763; &#9889; &#10017;
+  </div>
+
+  <script>
+    const content = document.getElementById('content');
+    const addButton = document.getElementById('addButton');
+    const playAudioBtn = document.getElementById('playAudioBtn');
+    const audio = document.getElementById('bgAudio');
+
+    function createColumn() {
+      const column = document.createElement('div');
+      column.className = 'column';
+      for (let i = 0; i < 10; i++) {
+        const words = [
+          ['axioma', 'אמת'],
+          ['corazon', 'לֵב'],
+          ['proposito', 'מַטָּרָה'],
+          ['humanidad', 'אֱנוֹשׁוּת']
+        ];
+        for (const [cls, text] of words) {
+          const span = document.createElement('span');
+          span.className = cls;
+          span.textContent = text;
+          column.appendChild(span);
+        }
+      }
+      return column;
+    }
+
+    function populateGrid() {
+      for (let i = 0; i < 24; i++) {
+        content.appendChild(createColumn());
+      }
+    }
+
+    populateGrid();
+
+    addButton.addEventListener('click', () => {
+      content.appendChild(createColumn());
+    });
+
+    playAudioBtn.addEventListener('click', () => {
+      audio.play();
+    });
+
+    window.addEventListener('scroll', () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+        for (let i = 0; i < 2; i++) content.appendChild(createColumn());
+      }
+    });
+
+    for (let i = 0; i < 40; i++) {
+      const span = document.createElement('span');
+      span.className = 'ehyeh';
+      span.textContent = 'אֶהְיֶה אֲשֶׁר אֶהְיֶה';
+      span.style.top = Math.random() * 100 + 'vh';
+      span.style.left = Math.random() * 100 + 'vw';
+      span.style.animationDuration = (8 + Math.random() * 12) + 's';
+      document.body.appendChild(span);
+    }
+  </script>
+</body>
+</html>
